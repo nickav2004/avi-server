@@ -21,31 +21,43 @@
               <a class="nav-link" href="/home">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/create-post">Post</a>
+              <a class="nav-link" href="/create-post">Data Run</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/upload_csv">Upload Data</a>
             </li>
           </ul>
         </div>
         <div>
           <ul class="navbar-nav">
             {% if user.is_authenticated %}
-            <span class="navbar-text">Logged in as {{user.username}} | </span>
+            <span class="navbar-text">{{user.username}} |</span>
             <li class="nav-item">
               <form action="{% url 'logout' %}" method="post">
                 {% csrf_token %}
-                <button type="submit" class="btn btn-secondary ms-3">
+                <button type="submit" class="btn btn-secondary ms-2">
                     Logout
                 </button>
             </form>
             </li>
             {% else %}
             <li class="nav-item">
-              <a class="nav-link" href="/login">Login</a>
+              {% if request.path == '/login/' %}
+                <a class="btn btn-secondary ms-3" href="{% url 'sign_up' %}">Sign Up</a>
+              {% elif request.path == '/sign-up' %}
+                <a class="btn btn-secondary ms-3" href="{% url 'login' %}">Login</a>
+              {% endif %}
             </li>
             {% endif %}
           </ul>
         </div>
       </div>
     </nav>
+      {% if messages %}
+        {% for message in messages %}
+          {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+        {% endfor %}
+      {% endif %}
     <div class="container">{% block content %} {% endblock %}</div>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
