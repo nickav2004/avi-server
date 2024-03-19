@@ -1,0 +1,126 @@
+{% extends 'main/base.html' %} {% block title %}Control Center{% endblock %}
+{% load crispy_forms_tags %} {% block content %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div class="container">
+    <h1 class="text-center my-4">RED</h1>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-header">Teensy Connection</div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="comPort">COM Port:</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="comPort" value="COM99">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="button">Refresh</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="baudRate">Baud Rate:</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="baudRate" value="115200">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="button">Disconnect</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-header">Control Information</div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label>VALVE A Control:</label>
+                        <div>
+                            <button class="btn btn-primary mr-2">OPEN</button>
+                            <button class="btn btn-primary mr-2">CLOSE</button>
+                            <button class="btn btn-secondary">Start Save</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>VALVE B Control:</label>
+                        <div>
+                            <button class="btn btn-primary mr-2">OPEN</button>
+                            <button class="btn btn-primary mr-2">CLOSE</button>
+                            <button class="btn btn-secondary">End Save</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Control State:</label>
+                        <span>Fully Closed</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-header">Sensor Information</div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label>Upstream Pressure (PU) [psia]:</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" value="30.008" disabled>
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="button">Start Save</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Downstream Pressure (PD) [psia]:</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" value="21.804" disabled>
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="button">End Save</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Mass Flow Rate [kg/s]:</label>
+                            <input type="text" class="form-control" value="0.053979" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label>Tank Volume [%]:</label>
+                            <input type="text" class="form-control" value="100" disabled>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">Pressure Readings (last 15 seconds)</div>
+                    <div class="card-body">
+                        <canvas id="myChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const ctx = document.getElementById('myChart');
+    const config = {
+        type: 'line',
+        data: {
+            labels: Utils.months({ count: 7 }),
+            datasets: [{
+                label: 'My First Dataset',
+                data: [65, 59, 80, 81, 56, 55, 40],
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1
+            }]
+        }
+    };
+
+    new Chart(ctx, config);
+</script>
+
+{% endblock %}

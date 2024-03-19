@@ -1,0 +1,11 @@
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "python.analysis.typeCheckingMode": "basic",
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter"
+  },
+  "python.analysis.autoImportCompletions": false,
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features"
+  }
+}

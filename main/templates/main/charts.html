@@ -1,0 +1,46 @@
+{% extends 'main/base.html' %} {% block title %}Control Center{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">Pressure Readings (last 15 seconds)</div>
+                <div class="card-body">
+                    <canvas id="myChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">Pressure Readings (last 15 seconds)</div>
+                <div class="card-body">
+                    <canvas id="myChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const labels = JSON.parse('{{ times|safe }}');
+    const datasets = JSON.parse('{{ datasets|safe }}');
+
+    const ctx = document.getElementById('myChart');
+    const config = {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: datasets
+        }
+    };
+
+    new Chart(ctx, config);
+</script>
+
+{% endblock %}

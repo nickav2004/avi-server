@@ -10,15 +10,14 @@ class Post(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.title + "\n" + self.description
+        return self.title
 
 
 class DataTable(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True)
-    description = models.TextField(blank=True, null=True)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
 
-    def __str__(self):
-        return f"Data Run on {self.created_at}"
+    def row_count(self):
+        return self.datarow_set.count()
 
 
 class DataRow(models.Model):

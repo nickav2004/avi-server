@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Post, DataTable
+from .models import Post
 
 
 class RegisterForm(UserCreationForm):
@@ -22,14 +22,8 @@ class RegisterForm(UserCreationForm):
 
 
 class PostForm(forms.ModelForm):
+    csv_file = forms.FileField(label="CSV File")
+
     class Meta:
         model = Post
         fields = ["title", "description"]
-
-
-# below is AVI
-
-
-class CSVUploadForm(forms.Form):
-    csv_file = forms.FileField(label="CSV File")
-    description = forms.CharField(required=False)
